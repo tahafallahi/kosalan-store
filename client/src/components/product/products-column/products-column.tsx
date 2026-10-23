@@ -1,4 +1,3 @@
-import { sdk } from "@/lib/medusa";
 import ProductCard from "./product-card";
 import ProductsSort from "./products-sort";
 import Grid from "../../layout/grid/grid";

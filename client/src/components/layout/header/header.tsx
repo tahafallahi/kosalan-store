@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  ListIcon,
   MagnifyingGlassIcon,
   ShoppingCartIcon,
 } from "@phosphor-icons/react";
@@ -10,8 +9,9 @@ import { cn } from "cn";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import HeaderMenu from "./header-menu";
+import Link from "next/link";
 
-const HEADER_COLLAPSE_POINT = 300;
+const HEADER_COLLAPSE_POINT = 100;
 
 export default function Header() {
   const [collapse, setCollapse] = useState(false);
@@ -30,10 +30,11 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "before:absolute before:bg-background before:-translate-y-14 md:before:-translate-y-15 before:left-0 before:right-0 before:h-14 isolate z-100 bg-background top-0 fixed left-0 right-0 min-h-14 border-t border-b flex items-center px-4 xl:px-30 md:min-h-16 transition-all duration-200",
+        "before:absolute before:bg-background before:-translate-y-14 md:before:-translate-y-15 before:left-0 before:right-0 before:h-14 isolate z-100 bg-card top-0 fixed left-0 right-0 min-h-14 border-t border-b flex items-center px-4 xl:px-30 md:min-h-16 transition-all duration-200",
         collapse ? "translate-y-0" : "translate-y-5 md:translate-y-8",
       )}
     >
+      <Link href="/">
       <Image
         src="/logo.png"
         width={50}
@@ -47,7 +48,8 @@ export default function Header() {
             ? "scale-100  md:scale-120 mx-0 md:mx-0"
             : "scale-180  md:scale-250",
         )}
-      />
+        />
+        </Link>
 
       <nav
         className={cn(

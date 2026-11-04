@@ -1,0 +1,76 @@
+"use server";
+
+import { decodeToken } from "react-jwt";
+import { sdk } from "../medusa";
+import { setAuthToken } from "./cookies";
+import { cache } from "react";
+import { getAuthHeaders } from "./cookies";
+import { updateTag } from "next/cache";
+import { transferCart } from "./cart";
+
+export const authenticate = async (formData: FormData) => {
+  const phone = formData.get("phone");
+  const response =
+    ((await sdk.auth.login("customer", "phone-auth", {
+      phone,
+    })) as { location: string }) || null;
+
+  if (
+    typeof response === "string" ||
+    !response.location ||
+    response.location !== "otp"
+  ) {
+    throw new Error("Failed to login");
+  }
+};
+
+export const verifyOtp = async (formData: FormData) => {
+  const phone = formData.get("phone") as string;
+  const otp = formData.get("otp") as string;
+
+  if (!phone || !otp) {
+    throw new Error("Phone and otp are required");
+  }
+
+  let token: string;
+
+  token = (await sdk.auth.callback("customer", "phone-auth", {
+    phone,
+    otp,
+  })) as string;
+
+  const decoded = (decodeToken(token) as { actor_id: string }) || null;
+
+  if (!decoded?.actor_id) {
+    const authHeaders = { authorization: `Bearer ${token}` };
+
+    await sdk.store.customer.create(
+      {
+        email: `${phone}@phone.com`,
+        phone,
+      },
+      {},
+      authHeaders,
+    );
+
+    token = (await sdk.auth.refresh(authHeaders)).token;
+  }
+
+  await setAuthToken(token);
+  updateTag("customer");
+  await transferCart();
+
+};
+
+export const retrieveCustomer = cache(async () => {
+  const headers = await getAuthHeaders();
+
+  if (!("authorization" in headers)) return null;
+
+  try {
+    const { customer } = await sdk.store.customer.retrieve({}, headers);
+    return customer;
+  } catch {
+    return null;
+  }
+});

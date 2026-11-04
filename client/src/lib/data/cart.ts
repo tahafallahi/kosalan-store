@@ -1,0 +1,71 @@
+"use server";
+
+import { HttpTypes } from "@medusajs/types";
+import { sdk } from "../medusa";
+import { getAuthHeaders, getCartId, setCartId } from "./cookies";
+import { getRegionId } from "./region";
+import { updateTag } from "next/cache";
+
+const regionId = await getRegionId();
+
+export async function retrieveCart() {
+  const cartId = await getCartId();
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  if (cartId) {
+    const response = await sdk.client.fetch<HttpTypes.StoreCartResponse>(`/store/carts/${cartId}`, {
+      method: "GET",
+      headers,
+      next: {tags: ["cart"]},
+      cache: "force-cache"
+    });
+    const cart = response.cart;
+    return cart;
+  }
+}
+
+export async function getOrSetCart() {
+  const cartId = await getCartId();
+
+  if (cartId) {
+    const response = await sdk.store.cart.retrieve(cartId);
+    const cart = response.cart;
+    return cart;
+  } else {
+    const response = await sdk.store.cart.create({ region_id: regionId });
+    const cart = response.cart;
+    await setCartId(cart.id);
+    return cart;
+  }
+}
+
+export async function addToCart(varaiantId: string, quantity: number) {
+  const cart = await getOrSetCart();
+
+  console.log("Owner is" ,cart.customer_id)
+
+  if (!cart) throw new Error("Failed to retrive or create cart.");
+
+  const headers = { ...(await getAuthHeaders()) };
+
+  await sdk.store.cart.createLineItem(
+    cart.id,
+    { quantity, variant_id: varaiantId },
+    {},
+    headers,
+  );
+
+  updateTag("cart");
+}
+
+export async function transferCart() {
+  const cart = await retrieveCart()
+  if (!cart) return
+  const headers = { ...(await getAuthHeaders())}
+  
+  await sdk.store.cart.transferCart(cart.id, {}, headers)
+  updateTag("cart")
+}

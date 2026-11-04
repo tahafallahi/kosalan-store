@@ -1,6 +1,11 @@
-import { loadEnv, defineConfig } from '@medusajs/framework/utils'
+import {
+  loadEnv,
+  defineConfig,
+  Modules,
+  ContainerRegistrationKeys,
+} from "@medusajs/framework/utils";
 
-loadEnv(process.env.NODE_ENV || 'development', process.cwd())
+loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
   projectConfig: {
@@ -11,6 +16,60 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET,
       cookieSecret: process.env.COOKIE_SECRET,
-    }
-  }
-})
+      authMethodsPerActor: {
+        user: ["emailpass"],
+        customer: ["phone-auth"],
+      },
+    },
+  },
+  modules: [
+    
+    {
+      resolve: "@medusajs/medusa/auth",
+      dependencies: [
+        Modules.CACHE,
+        ContainerRegistrationKeys.LOGGER,
+        Modules.EVENT_BUS,
+      ],
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/auth-emailpass",
+            id: "emailpass",
+          },
+          {
+            resolve: "./src/modules/phone-auth",
+            id: "phone-auth",
+            options: {
+              jwtSecret: process.env.PHONE_AUTH_JWT_SECRET,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/notification-local",
+            id: "local",
+            options: {
+              name: "Local Notification Provider",
+              channels: ["feed"],
+            },
+          },
+          {
+            resolve: "./src/modules/sms",
+            id: "sms",
+            options: {
+              channels: ["sms"],
+              templateId: process.env.SMS_IR_TEMPLATE_ID,
+              apiKey: process.env.SMS_IR_API_KEY,
+            },
+          },
+        ],
+      },
+    },
+  ],
+});

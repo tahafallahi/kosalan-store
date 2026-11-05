@@ -1,18 +1,18 @@
-import Grid from "../../layout/grid/grid";
-import { StoreProduct } from "@medusajs/types";
+import { StoreCartLineItem } from "@medusajs/types";
 import ProductStrip from "./product-strip";
 
 interface Props {
-  products: StoreProduct[]
+  cartItems: StoreCartLineItem[]
+  compact?: boolean
 }
 
-export default async function ProductsStripColumn({products}: Props) {
+export default async function ProductsStripColumn({cartItems}: Props) {
 
   return (
     <section>
-      <div>
-        {products.map((p) => (
-          <ProductStrip product={p} key={p.id} />
+      <div className="flex flex-col">
+        {cartItems.map((i) => (
+          <ProductStrip cartItem={i} key={i.id}/>
         ))}
       </div>
     </section>

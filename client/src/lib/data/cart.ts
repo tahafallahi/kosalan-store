@@ -45,8 +45,6 @@ export async function getOrSetCart() {
 export async function addToCart(varaiantId: string, quantity: number) {
   const cart = await getOrSetCart();
 
-  console.log("Owner is" ,cart.customer_id)
-
   if (!cart) throw new Error("Failed to retrive or create cart.");
 
   const headers = { ...(await getAuthHeaders()) };
@@ -60,6 +58,31 @@ export async function addToCart(varaiantId: string, quantity: number) {
 
   updateTag("cart");
 }
+
+export async function updateLineItem(lineItemId: string, quantity: number) {
+  const cart = await getOrSetCart();
+
+  if (!cart) throw new Error("Failed to retrive or create cart.");
+
+  const headers = { ...(await getAuthHeaders()) };
+
+  await sdk.store.cart.updateLineItem(cart.id, lineItemId, {quantity}, {}, headers)
+
+  updateTag("cart");
+}
+
+export async function deleteLineItem(lineItemId: string) {
+  const cart = await getOrSetCart();
+
+  if (!cart) throw new Error("Failed to retrive or create cart.");
+
+  const headers = { ...(await getAuthHeaders()) };
+
+  await sdk.store.cart.deleteLineItem(cart.id, lineItemId, {}, headers)
+
+  updateTag("cart");
+}
+
 
 export async function transferCart() {
   const cart = await retrieveCart()

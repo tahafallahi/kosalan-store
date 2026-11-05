@@ -1,27 +1,34 @@
-import {
-  HouseIcon,
-  ShoppingCartIcon,
-  SquaresFourIcon,
-  UserCircleIcon,
-} from "@phosphor-icons/react/dist/ssr";
 import NavLink from "./nav-link";
 import CartCounter from "./cart-counter";
 import { Suspense } from "react";
+import CartDetailesWrapper from "./cart-detailes-wrapper";
+import CartDetailes from "./cart-detailes";
+import ProfileLink from "./profile-link";
+import CheckoutDetails from "./checkout-details";
 
-export default async function MobileNav() {
-
+export default function MobileNav() {
   return (
-    <nav className="fixed bg-card bottom-0 left-0 right-0  isolate border-t md:hidden flex justify-between px-10 pt-4 text-muted-foreground text-sm pb-[calc(max(1rem,env(safe-area-inset-bottom))+0.5rem)]">
-      <NavLink icon={HouseIcon} text="خانه" link="/" />
-      <NavLink icon={SquaresFourIcon} text="دسته بندی" link="/categories" />
-      <div className="relative">
-        <NavLink icon={ShoppingCartIcon} text="سبد خرید" link="/cart" />
-        <Suspense>
-
-       <CartCounter />
-        </Suspense>
+    <div className="fixed bg-card bottom-0 left-0 right-0  isolate border-t md:hidden text-muted-foreground text-sm pb-[calc(max(1rem,env(safe-area-inset-bottom))+0.5rem)]">
+      <CartDetailesWrapper
+        className="border-b px-10 py-2 "
+        cart={<CartDetailes />}
+        checkout={<CheckoutDetails />}
+      />
+      <div>
+        <nav className="flex justify-between px-10 pt-4">
+          <NavLink icon="home" text="خانه" link="/" />
+          <NavLink icon="categories" text="دسته بندی" link="/categories" />
+          <div className="relative">
+            <NavLink icon="cart" text="سبد خرید" link="/cart" />
+            <Suspense>
+              <CartCounter />
+            </Suspense>
+          </div>
+          <Suspense>
+            <ProfileLink />
+          </Suspense>
+        </nav>
       </div>
-      <NavLink icon={UserCircleIcon} text="پروفایل" link="/user/profile" />
-    </nav>
+    </div>
   );
 }

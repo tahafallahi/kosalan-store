@@ -29,3 +29,17 @@ export async function retriveProductByHandle(productHandle: string) {
 
   return products[0];
 }
+
+export async function retriveProductById(id: string) {
+  "use cache";
+  cacheLife("minutes");
+
+  const { products } = await sdk.store.product.list({
+    id,
+    region_id: regionId,
+    fields: "*variants.calculated_price, +metadata",
+  });
+
+  return products[0];
+}
+

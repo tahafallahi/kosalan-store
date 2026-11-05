@@ -1,3 +1,4 @@
+
 import { retrieveCart } from "@/lib/data/cart";
 
 export default async function CartCounter() {

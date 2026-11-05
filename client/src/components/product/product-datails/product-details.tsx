@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils/format-number";
 import { StoreProduct } from "@medusajs/types";
 import { StarIcon } from "@phosphor-icons/react/dist/ssr";
+import ProductDetailsButton from "./product-details-button";
 
 interface Props {
   product: StoreProduct;
@@ -38,7 +39,7 @@ export default function ProdcutDetails({ product }: Props) {
               )}{" "}
               تومان
             </p>
-            <AddToCartButton product={product} className="py-6 px-3 text-sm" />
+            <ProductDetailsButton product={product} />
           </div>
         </div>
       </Card>

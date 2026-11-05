@@ -1,19 +1,48 @@
-import { Icon } from "@phosphor-icons/react";
-import { cn } from "cn";
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  DoorOpenIcon,
+  HouseIcon,
+  ShoppingCartIcon,
+  SquaresFourIcon,
+  UserCircleIcon,
+} from "@phosphor-icons/react";
+import { cn } from "@/lib/utils";
 
-interface Props {
-  icon: Icon,
-  text: string,
-  link: string,
-  selected?: boolean,
-}
+const icons = {
+  home: HouseIcon,
+  categories: SquaresFourIcon,
+  cart: ShoppingCartIcon,
+  profile: UserCircleIcon,
+  enter: DoorOpenIcon
+} as const;
 
-export default function NavLink({icon: IconCompoent, text, link, selected}: Props) {
+export default function NavLink({
+  icon,
+  text,
+  link,
+}: {
+  icon: keyof typeof icons;
+  text: string;
+  link: string;
+}) {
+  const pathname = usePathname();
+  const active = link === "/" ? pathname === "/" : pathname.startsWith(link);
+  const Icon = icons[icon];
+
   return (
-    <Link className="flex flex-col items-center" href={link}>
-      <IconCompoent size={25} {...selected && {weight: "fill", className: "text-primary"}}/>
-      <p className={cn(selected && "text-primary font-semibold")}>{text}</p>
+    <Link
+      href={link}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "flex flex-col items-center gap-1",
+        active ? "text-primary" : "text-muted-foreground"
+      )}
+    >
+      <Icon weight={active ? "fill" : "regular"} className="size-6" />
+      <span>{text}</span>
     </Link>
   );
 }

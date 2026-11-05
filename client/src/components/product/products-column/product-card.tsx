@@ -1,10 +1,11 @@
 import { StoreProduct } from "@medusajs/types";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import AddToCartButton from "@/components/ui/add-to-cart-button";
 import { formatNumber } from "@/lib/utils/format-number";
 import { StarIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+import ProductCardButton from "./product-card-button";
+import { Suspense } from "react";
 
 interface Props {
   product: StoreProduct;
@@ -36,7 +37,9 @@ export default function ProductCard({ product }: Props) {
 
       <div className="flex flex-col gap-2">
         <p className="text-base font-bold text-primary self-end">{` ${formatNumber(Number(product.variants?.[0]?.calculated_price?.calculated_amount))} تومان`}</p>
-        <AddToCartButton product={product} />
+        <Suspense>
+          <ProductCardButton product={product} />
+        </Suspense>
       </div>
     </Card>
   );

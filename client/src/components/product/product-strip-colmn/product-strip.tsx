@@ -28,9 +28,9 @@ export default async function ProductStrip({ cartItem }: Props) {
           />
         </div>
       </Link>
-      <div>
+      <div className="flex flex-col gap-2 w-full pl-2">
 
-        <div className="mb-5">
+        <div >
           <h3 className="text-sm ">{product.title}</h3>
           <div className="flex gap-1">
             <StarIcon weight="fill" className="text-yellow-400" />
@@ -40,8 +40,8 @@ export default async function ProductStrip({ cartItem }: Props) {
           </div>
         </div>
 
-      <div className="flex  gap-2">
-        <AddRemoveButton cartItem={cartItem} className="w-fit" />
+      <div className="flex  gap-2 justify-between">
+        <AddRemoveButton cartItem={cartItem} className="w-30 border-0 translate-x-3" small detailed/>
         <p className="text-base font-bold text-primary self-end">{` ${formatNumber(Number(product.variants?.[0]?.calculated_price?.calculated_amount)* cartItem.quantity)} تومان`}</p>
       </div>
       </div>

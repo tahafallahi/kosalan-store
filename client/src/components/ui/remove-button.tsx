@@ -13,7 +13,7 @@ interface Props {
 export default function RemoveButton({ cartItem, className }: Props) {
   return (
     <Button
-      className="absolute left-2 top-2 text-destructive bg-transparent p-2"
+      className="absolute left-1 top-2 text-destructive bg-transparent p-2"
       onClick={() => deleteLineItem(cartItem.id)}
     >
       <TrashIcon className="size-6" weight="bold" />

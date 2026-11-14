@@ -10,7 +10,7 @@ export default async function ProductsStripColumn({cartItems}: Props) {
 
   return (
     <section>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-4">
         {cartItems.map((i) => (
           <ProductStrip cartItem={i} key={i.id}/>
         ))}

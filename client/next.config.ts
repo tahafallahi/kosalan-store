@@ -13,20 +13,22 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  allowedDevOrigins: ["192.168.1.7"],
+  allowedDevOrigins: ["172.17.23.95"],
+
   images: {
     qualities: [25, 50, 75, 100],
-    remotePatterns: [{
-      protocol: "http", 
-      hostname: "localhost"
-    }, 
-    // {
-    //   protocol: "https", 
-    //   hostname: process.env.S3_URL ?? ""
-    // }
-  ],
-  dangerouslyAllowLocalIP: process.env.NODE_ENV === "development"
-  }
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      // {
+      //   protocol: "https",
+      //   hostname: process.env.S3_URL ?? ""
+      // }
+    ],
+    dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
+  },
 };
 
 export default nextConfig;

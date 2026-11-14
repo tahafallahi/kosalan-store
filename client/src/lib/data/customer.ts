@@ -7,6 +7,7 @@ import { cache } from "react";
 import { getAuthHeaders } from "./cookies";
 import { updateTag } from "next/cache";
 import { transferCart } from "./cart";
+import { customerSchema } from "../schema/customer-schema";
 
 export const authenticate = async (formData: FormData) => {
   const phone = formData.get("phone");
@@ -59,7 +60,6 @@ export const verifyOtp = async (formData: FormData) => {
   await setAuthToken(token);
   updateTag("customer");
   await transferCart();
-
 };
 
 export const retrieveCustomer = cache(async () => {
@@ -74,3 +74,66 @@ export const retrieveCustomer = cache(async () => {
     return null;
   }
 });
+
+export async function updateCustomer(prevData: boolean, formData: FormData) {
+  const headers = { ...(await getAuthHeaders()) };
+  const raw = Object.fromEntries(formData) as Record<string, string>;
+  const parsed = customerSchema.safeParse(raw);
+
+  if (!parsed.success) return false;
+
+  const {
+    "given-name": first_name,
+    "family-name": last_name,
+    "address-level1": province,
+    "address-level2": city,
+    "street-address": address_1,
+    "postal-code": postal_code,
+  } = parsed.data;
+
+  await sdk.store.customer.update(
+    {
+      first_name,
+      last_name,
+    },
+    {},
+    headers,
+  );
+
+  const address = await retrieveCustomerAddress();
+
+  if (address) {
+    await sdk.store.customer.updateAddress(
+      address.id,
+      {
+        province,
+        city,
+        address_1,
+        postal_code,
+      },
+      {},
+      headers,
+    );
+  } else {
+    await sdk.store.customer.createAddress(
+      {
+        province,
+        city,
+        address_1,
+        postal_code,
+      },
+      {},
+      headers,
+    );
+  }
+
+  return true;
+}
+
+export async function retrieveCustomerAddress() {
+  const headers = { ...(await getAuthHeaders()) };
+
+  const response = await sdk.store.customer.listAddress({}, headers);
+
+  return response.addresses[0] ?? null;
+}

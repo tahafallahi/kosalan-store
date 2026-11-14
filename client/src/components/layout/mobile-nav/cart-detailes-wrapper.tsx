@@ -16,12 +16,16 @@ export default function CartDetailesWrapper({
 }: Props) {
   const pathName = usePathname();
   return (
-    <div className={className}>
+    <>
       {pathName.startsWith("/cart/checkout") ? (
-        <Suspense>{checkout}</Suspense>
+        <div className={className}>
+          <Suspense>{checkout}</Suspense>
+        </div>
       ) : pathName.startsWith("/cart") ? (
-        <Suspense>{cart}</Suspense>
+        <div className={className}>
+          <Suspense>{cart}</Suspense>
+        </div>
       ) : null}
-    </div>
+    </>
   );
 }

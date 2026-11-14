@@ -15,11 +15,7 @@ export default async function CheckoutDetails() {
 
       <div className="items-end flex flex-col">
         <p>
-          جمع{" "}
-          {formatNumber(
-            Number(cart?.items?.reduce((sum, item) => sum + item.quantity, 0)),
-          )}{" "}
-          کالا
+          مبلغ پرداختی
         </p>
         <p className="text-primary font-bold text-base">
           {formatNumber(Number(cart?.total))} تومان

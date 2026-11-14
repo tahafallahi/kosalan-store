@@ -9,7 +9,7 @@ interface Props {
 
 export default function TextSection({ title, body, children }: Props) {
   return (
-    <section>
+    <section className="relative">
       <Card className="p-4 gap-2 text-base">
         <h2 className="text-xl font-semibold">{title}</h2>
         <div className="text-muted-foreground">

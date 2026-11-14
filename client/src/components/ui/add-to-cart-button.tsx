@@ -13,7 +13,7 @@ interface Props {
 
 export default function AddToCartButton({product, className}: Props) {
   return (
-    <Button className={cn("w-full py-4 text-xs", className)} onClick={() => product.variants?.[0]?.id && addToCart(product.variants?.[0]?.id, 1)}>
+    <Button className={cn("w-full text-xs", className)} onClick={() => product.variants?.[0]?.id && addToCart(product.variants?.[0]?.id, 1)}>
       افزودن به سبد خرید
       <PlusIcon className="size-4" weight="bold" />
     </Button>

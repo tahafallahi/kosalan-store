@@ -37,7 +37,7 @@ export default function Auth() {
     return (
       <ContentPadding>
         <form action={verifyOtp}>
-          <input type="hidden" name="phone" value={phone} />
+          <input type="hidden" name="phone" value={phone}/>
           <FieldGroup dir="ltr">
             <FieldLabel htmlFor="otp">کد ارسال شده را وارد کنید.</FieldLabel>
             <InputOTP id="digits-only" name="otp" maxLength={6}>

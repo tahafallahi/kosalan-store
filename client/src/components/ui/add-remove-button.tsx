@@ -10,24 +10,24 @@ interface Props {
   cartItem: StoreCartLineItem;
   className?: string;
   detailed?: boolean
+  small?: boolean
 }
 
-export default function AddRemoveButton({ cartItem, className, detailed }: Props) {
+export default function AddRemoveButton({ cartItem, className, detailed, small }: Props) {
   return (
-    <div className={cn("flex justify-between items-baseline border rounded-full", className)}>
+    <div className={cn("flex justify-between items-baseline border rounded-lg ", className)}>
       <Button
         className={cn(
-          "py-4 text-xs bg-transparent text-primary",
+          " text-xs bg-transparent text-primary", small && "py-0"
         )}
         onClick={() => updateLineItem(cartItem.id, cartItem.quantity + 1)}
       >
         <PlusIcon className="size-4" weight="bold" />
       </Button>
-      <p className="-translate-y-0.5">{cartItem.quantity} {detailed && "عدد"}</p>
+      <p className="-translate-y-1">{cartItem.quantity} {detailed && "عدد"}</p>
       <Button
         className={cn(
-          " py-4 text-xs bg-transparent text-primary",
-          className,
+          "text-xs bg-transparent text-primary", small && "py-0",
         )}
         onClick={() => updateLineItem(cartItem.id, cartItem.quantity - 1)}
       >

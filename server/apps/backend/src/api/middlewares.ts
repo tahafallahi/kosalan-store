@@ -1,4 +1,4 @@
-import { configureStoreSearch, defineMiddlewares, validateAndTransformBody } from '@medusajs/framework/http'
+import { allowFields, configureStoreSearch, defineMiddlewares, validateAndTransformBody } from '@medusajs/framework/http'
 import { CreateCategoryImagesSchema } from './admin/categories/[category_id]/image/route'
 
 // The product index declares filterable `status` and `sales_channel_ids`, so
@@ -23,5 +23,9 @@ export default defineMiddlewares({
         validateAndTransformBody(CreateCategoryImagesSchema),
       ],
     },
+    {
+      matcher: "/store/product-categories",
+      middlewares: [allowFields("product_category_image")],
+    }
   ],
 })

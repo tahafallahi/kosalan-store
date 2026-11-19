@@ -7,7 +7,7 @@ interface Props {
   compact?: boolean;
 }
 
-export default async function ProductList({ cartItems }: Props) {
+export default function ProductList({ cartItems }: Props) {
   return (
     <TextSection title="سبد خرید">
       <div className="flex flex-col text-foreground">

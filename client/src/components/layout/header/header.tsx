@@ -1,17 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  MagnifyingGlassIcon,
-  ShoppingCartIcon,
-} from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, ShoppingCartIcon } from "@phosphor-icons/react";
 import { cn } from "cn";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import HeaderMenu from "./header-menu";
 import Link from "next/link";
+import HeaderLink from "./header-link";
+import CartCounter from "../mobile-nav/cart-counter";
 
-const HEADER_COLLAPSE_POINT = 100;
+const HEADER_COLLAPSE_POINT = 80;
 
 export default function Header() {
   const [collapse, setCollapse] = useState(false);
@@ -35,36 +34,43 @@ export default function Header() {
       )}
     >
       <Link href="/">
-      <Image
-        src="/logo.png"
-        width={50}
-        height={50}
-        sizes="(max-width: 768px) 15vw, 150px"
-        loading="eager"
-        alt="لوگوی کوسالان"
-        className={cn(
-          "w-11 aspect-square mx-4 md:mr-6 md:ml-7 xl:ml-20  transition-all duration-200",
-          collapse
-            ? "scale-100  md:scale-120 mx-0 md:mx-0"
-            : "scale-180  md:scale-250",
-        )}
+        <Image
+          src="/logo.png"
+          width={50}
+          height={50}
+          sizes="(max-width: 768px) 15vw, 150px"
+          loading="eager"
+          alt="لوگوی کوسالان"
+          className={cn(
+            "w-11 aspect-square mx-4 md:mr-6 md:ml-7 xl:ml-20  transition-all duration-200",
+            collapse
+              ? "scale-100  md:scale-120 mx-0 md:mx-0"
+              : "scale-180  md:scale-250",
+          )}
         />
-        </Link>
+      </Link>
 
       <nav
         className={cn(
           "xl:flex gap-7 text-muted-foreground text-xl",
-          menuIsOpen ? " max-xl:flex  max-xl:text-base  max-xl:flex-1 max-xl:gap-4 max-xl:mr-5" : "hidden",
+          menuIsOpen
+            ? " max-xl:flex  max-xl:text-base  max-xl:flex-1 max-xl:gap-4 max-xl:mr-5"
+            : "hidden",
         )}
       >
-        <h2 className="hidden md:block">محصولات</h2>
-        <h2 className="hidden md:block">دسته بندی</h2>
-        <h2>بلاگ</h2>
-        <h2>درباره ما</h2>
-        <h2>تماس با ما</h2>
+        <HeaderLink text="محصولات" link="/"></HeaderLink>
+        <HeaderLink text="دسته بندی" link="/categories"></HeaderLink>
+        <HeaderLink text="بلاگ" link="/blog"></HeaderLink>
+        <HeaderLink text="درباره ما" link="/about-us"></HeaderLink>
+        <HeaderLink text="تماس با ما" link="/contact"></HeaderLink>
       </nav>
 
-      <div className={cn("flex flex-1 justify-center md:mx-4", menuIsOpen && "hidden xl:flex")}>
+      <div
+        className={cn(
+          "flex flex-1 justify-center md:mx-4",
+          menuIsOpen && "hidden xl:flex",
+        )}
+      >
         <Button className="flex-1 relative mx-4 bg-background rounded-full border-primary text-muted-foreground hover:bg-background xl:max-w-100  ">
           <MagnifyingGlassIcon className="absolute right-3" />
           جستجو
@@ -73,13 +79,20 @@ export default function Header() {
 
       <nav className="flex  items-center gap-7 xl:gap-12">
         <h2 className="hidden md:inline font-semibold">ورود | ثبت نام</h2>
-        <Button
-          className="hidden md:inline p-0 border-none size-9"
-          variant="ghost"
-        >
-          <ShoppingCartIcon className="size-full" weight="regular" />
-        </Button>
-        <HeaderMenu className="xl:hidden" menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
+        <div className="relative hidden md:inline">
+          <Button
+            className="p-0 border-none size-9"
+            variant="ghost"
+          >
+            <ShoppingCartIcon className="size-full" weight="regular" />
+          </Button>
+          {/* <CartCounter className="-left-1 text-base/7 size-6"/> */}
+        </div>
+        <HeaderMenu
+          className="xl:hidden"
+          menuIsOpen={menuIsOpen}
+          setMenuIsOpen={setMenuIsOpen}
+        />
       </nav>
     </header>
   );

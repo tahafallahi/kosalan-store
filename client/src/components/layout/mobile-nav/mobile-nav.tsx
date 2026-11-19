@@ -20,9 +20,7 @@ export default function MobileNav() {
           <NavLink icon="categories" text="دسته بندی" link="/categories" />
           <div className="relative">
             <NavLink icon="cart" text="سبد خرید" link="/cart" />
-            <Suspense>
-              <CartCounter />
-            </Suspense>
+            <CartCounter/>
           </div>
           <Suspense>
             <ProfileLink />

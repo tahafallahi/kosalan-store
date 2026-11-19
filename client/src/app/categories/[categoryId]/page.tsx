@@ -11,8 +11,6 @@ export const instant = false
 export async function generateStaticParams() {
   const categories = await listCategories();
   
-  categories.forEach(c => console.log(c)) 
-  
   return categories.map((c) => ({
     categoryId: c.id,
   }))

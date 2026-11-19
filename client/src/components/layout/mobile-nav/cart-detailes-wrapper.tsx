@@ -19,11 +19,11 @@ export default function CartDetailesWrapper({
     <>
       {pathName.startsWith("/cart/checkout") ? (
         <div className={className}>
-          <Suspense>{checkout}</Suspense>
+          {checkout}
         </div>
       ) : pathName.startsWith("/cart") ? (
         <div className={className}>
-          <Suspense>{cart}</Suspense>
+          {cart}
         </div>
       ) : null}
     </>

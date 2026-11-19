@@ -6,7 +6,7 @@ interface Props {
   compact?: boolean
 }
 
-export default async function ProductsStripColumn({cartItems}: Props) {
+export default function ProductsStripColumn({cartItems}: Props) {
 
   return (
     <section>

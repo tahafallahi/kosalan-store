@@ -13,17 +13,22 @@ export async function retrieveCart() {
 
   const headers = {
     ...(await getAuthHeaders()),
-  }
+  };
 
   if (cartId) {
-    const response = await sdk.client.fetch<HttpTypes.StoreCartResponse>(`/store/carts/${cartId}`, {
-      method: "GET",
-      headers,
-      next: {tags: ["cart"]},
-      cache: "force-cache"
-    });
+    const response = await sdk.client.fetch<HttpTypes.StoreCartResponse>(
+      `/store/carts/${cartId}`,
+      {
+        method: "GET",
+        headers,
+        next: { tags: ["cart"] },
+        cache: "force-cache",
+      },
+    );
     const cart = response.cart;
     return cart;
+  } else {
+    return null;
   }
 }
 
@@ -38,11 +43,12 @@ export async function getOrSetCart() {
     const response = await sdk.store.cart.create({ region_id: regionId });
     const cart = response.cart;
     await setCartId(cart.id);
+
     return cart;
   }
 }
 
-export async function addToCart(varaiantId: string, quantity: number) {
+export async function addToCart(varaiantId: string) {
   const cart = await getOrSetCart();
 
   if (!cart) throw new Error("Failed to retrive or create cart.");
@@ -51,7 +57,7 @@ export async function addToCart(varaiantId: string, quantity: number) {
 
   await sdk.store.cart.createLineItem(
     cart.id,
-    { quantity, variant_id: varaiantId },
+    { quantity: 1, variant_id: varaiantId },
     {},
     headers,
   );
@@ -66,7 +72,13 @@ export async function updateLineItem(lineItemId: string, quantity: number) {
 
   const headers = { ...(await getAuthHeaders()) };
 
-  await sdk.store.cart.updateLineItem(cart.id, lineItemId, {quantity}, {}, headers)
+  await sdk.store.cart.updateLineItem(
+    cart.id,
+    lineItemId,
+    { quantity },
+    {},
+    headers,
+  );
 
   updateTag("cart");
 }
@@ -78,17 +90,16 @@ export async function deleteLineItem(lineItemId: string) {
 
   const headers = { ...(await getAuthHeaders()) };
 
-  await sdk.store.cart.deleteLineItem(cart.id, lineItemId, {}, headers)
+  await sdk.store.cart.deleteLineItem(cart.id, lineItemId, {}, headers);
 
   updateTag("cart");
 }
 
-
 export async function transferCart() {
-  const cart = await retrieveCart()
-  if (!cart) return
-  const headers = { ...(await getAuthHeaders())}
-  
-  await sdk.store.cart.transferCart(cart.id, {}, headers)
-  updateTag("cart")
+  const cart = await retrieveCart();
+  if (!cart) return;
+  const headers = { ...(await getAuthHeaders()) };
+
+  await sdk.store.cart.transferCart(cart.id, {}, headers);
+  updateTag("cart");
 }

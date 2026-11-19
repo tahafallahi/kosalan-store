@@ -1,9 +1,11 @@
-import { retrieveCart } from "@/lib/data/cart";
+"use client"
+
+import useCartContext from "@/hooks/contexts";
 import { formatNumber } from "@/lib/utils/format-number";
 import Link from "next/link";
 
-export default async function CheckoutDetails() {
-  const cart = await retrieveCart();
+export default function CheckoutDetails() {
+  const [optimisticCart] = useCartContext();
   return (
     <div className="flex justify-between">
       <Link
@@ -18,7 +20,7 @@ export default async function CheckoutDetails() {
           مبلغ پرداختی
         </p>
         <p className="text-primary font-bold text-base">
-          {formatNumber(Number(cart?.total))} تومان
+          {formatNumber(Number(optimisticCart?.total))} تومان
         </p>
       </div>
     </div>

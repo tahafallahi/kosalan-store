@@ -1,22 +1,35 @@
+"use client"
+
 import AddRemoveButton from "@/components/ui/add-remove-button";
 import AddToCartButton from "@/components/ui/add-to-cart-button";
-import { retrieveCart } from "@/lib/data/cart";
+import useCartContext from "@/hooks/contexts";
 import { StoreProduct } from "@medusajs/types";
 
 interface Props {
   product: StoreProduct;
 }
 
-export default async function ProductDetailsButton({ product }: Props) {
-  const cart = await retrieveCart();
-  const itemInCart = cart?.items?.filter((i) => i.product_id === product.id);
+export default function ProductDetailsButton({ product }: Props) {
+  const [optimisticCart, setOptimsticCart] = useCartContext();
+  const cartItem = optimisticCart?.items?.filter(
+    (i) => i.product_id === product.id,
+  )[0];
 
   return (
     <>
-      {!!itemInCart?.length ? (
-        <AddRemoveButton cartItem={itemInCart[0]} detailed/>
+      {cartItem && setOptimsticCart ? (
+        <AddRemoveButton
+          optimisticCart={optimisticCart}
+          setOptimisticCart={setOptimsticCart}
+          cartItem={cartItem}
+          detailed
+        />
       ) : (
-        <AddToCartButton product={product} className="py-6 px-3 text-sm" />
+        <AddToCartButton
+          optimisticCart={optimisticCart}
+          setOptimisticCart={setOptimsticCart}
+          product={product}
+        />
       )}
     </>
   );

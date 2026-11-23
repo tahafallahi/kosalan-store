@@ -8,9 +8,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { startTransition } from "react";
 
 interface Props {
-  optimisticCart: StoreCart;
+  optimisticCart: StoreCart | null | undefined;
   setOptimisticCart: (
-    action: StoreCart | ((pendingState: StoreCart | null) => StoreCart | null),
+    action:
+      | StoreCart
+      | ((pendingState: StoreCart | null | undefined) => StoreCart | null),
   ) => void;
   cartItem: StoreCartLineItem;
   className?: string;
@@ -22,21 +24,25 @@ export default function RemoveButton({
   cartItem,
   className,
 }: Props) {
-  const client = useQueryClient()
+  const client = useQueryClient();
 
   return (
     <Button
       className="absolute left-1 top-2 text-destructive bg-transparent p-2"
-      onClick={() => startTransition(async () => {
-        setOptimisticCart({
-          ...optimisticCart,
-          total: optimisticCart.total - cartItem.unit_price * cartItem.quantity,
-          items: optimisticCart.items?.filter(i => i.id !== cartItem.id)
-        })
-        await deleteLineItem(cartItem.id)
+      onClick={() =>
+        startTransition(async () => {
+          if (optimisticCart)
+            setOptimisticCart({
+              ...optimisticCart,
+              total:
+                optimisticCart.total - cartItem.unit_price * cartItem.quantity,
+              items: optimisticCart.items?.filter((i) => i.id !== cartItem.id),
+            });
+          await deleteLineItem(cartItem.id);
 
-        client.invalidateQueries({queryKey: ["cart"]})
-      })}
+          client.invalidateQueries({ queryKey: ["cart"] });
+        })
+      }
     >
       <TrashIcon className="size-6" weight="bold" />
     </Button>

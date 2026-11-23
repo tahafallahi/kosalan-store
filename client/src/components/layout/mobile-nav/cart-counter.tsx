@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function CartCounter({ className }: Props) {
-  const [optimisticCart, setOptiimsticCart] = useCartContext()
+  const [optimisticCart] = useCartContext()
 
   return (
     <>

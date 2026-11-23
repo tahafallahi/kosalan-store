@@ -1,14 +1,16 @@
 "use client"
 
+import { CustomerInformation } from "@/components/customer/customer-information/customer-information";
 import TextSection from "@/components/layout/text-section/text-section";
 import ProductList from "@/components/product/product-list/product-list";
 import useCartContext from "@/hooks/contexts";
+import { useRetriveCustomer } from "@/hooks/data-hooks";
 import { formatNumber } from "@/lib/utils/format-number";
 import { GetCartItemsCount } from "@/lib/utils/get-cart-items-count";
 
 export default function Checkout() {
   const [optimisticCart] = useCartContext();
-  // const customer = await retrieveCustomer();
+  const customer = useRetriveCustomer();
 
   const items =
     optimisticCart?.items?.toSorted(
@@ -24,7 +26,7 @@ export default function Checkout() {
       ) : (
         <p>کالایی در سبد خرید شما نیست.</p>
       )}
-      {/* {customer && <CustomerInformation customer={customer} />} */}
+      {customer && <CustomerInformation customer={customer} />}
       <TextSection title="فاکتور">
         <div className="flex flex-col gap-1">
           <div className="flex justify-between">

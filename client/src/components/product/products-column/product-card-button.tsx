@@ -1,6 +1,6 @@
 "use client";
 
-import { useRetriveCart } from "@/hooks/cart";
+import { useRetriveCart } from "@/hooks/data-hooks";
 // import useMounetd from "@/hooks/mount";
 import AddRemoveButton from "@/components/ui/add-remove-button";
 import AddToCartButton from "@/components/ui/add-to-cart-button";

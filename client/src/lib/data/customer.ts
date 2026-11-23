@@ -8,6 +8,7 @@ import { getAuthHeaders } from "./cookies";
 import { updateTag } from "next/cache";
 import { transferCart } from "./cart";
 import { customerSchema } from "../schema/customer-schema";
+import { redirect } from "next/navigation";
 
 export const authenticate = async (formData: FormData) => {
   const phone = formData.get("phone");
@@ -28,20 +29,20 @@ export const authenticate = async (formData: FormData) => {
 export const verifyOtp = async (formData: FormData) => {
   const phone = formData.get("phone") as string;
   const otp = formData.get("otp") as string;
-
+  
   if (!phone || !otp) {
     throw new Error("Phone and otp are required");
   }
 
   let token: string;
-
+  
   token = (await sdk.auth.callback("customer", "phone-auth", {
     phone,
     otp,
   })) as string;
 
   const decoded = (decodeToken(token) as { actor_id: string }) || null;
-
+  
   if (!decoded?.actor_id) {
     const authHeaders = { authorization: `Bearer ${token}` };
 
@@ -53,13 +54,14 @@ export const verifyOtp = async (formData: FormData) => {
       {},
       authHeaders,
     );
-
+    
     token = (await sdk.auth.refresh(authHeaders)).token;
   }
 
   await setAuthToken(token);
   updateTag("customer");
   await transferCart();
+  redirect("/")
 };
 
 export const retrieveCustomer = cache(async () => {

@@ -2,7 +2,7 @@
 
 import { useOptimistic, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRetriveCart } from "./hooks/cart";
+import { useRetriveCart } from "./hooks/data-hooks";
 import CartContenxt from "./contexts/cart";
 import { StoreCart } from "@medusajs/types";
 let browserQueryClient: QueryClient | undefined;

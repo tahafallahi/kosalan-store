@@ -1,7 +1,9 @@
 "use client";
 
 import ContentPadding from "@/components/layout/content-padding/content-padding";
+import TextSection from "@/components/layout/text-section/text-section";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,42 +21,59 @@ export default function Auth() {
   if (!submited) {
     return (
       <ContentPadding>
-        <form action={authenticate} onSubmit={() => setSubmited(true)}>
-          <FieldGroup>
-            <FieldLabel htmlFor="phone">شماره موبایل</FieldLabel>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </FieldGroup>
-          <Button type="submit">ثبت نام</Button>
-        </form>
+        <TextSection title="ورود یا ثبت نام در کوسالان">
+          <form
+            action={authenticate}
+            onSubmit={() => setSubmited(true)}
+            className="flex flex-col gap-5"
+          >
+            <FieldGroup className="gap-2">
+              <FieldLabel htmlFor="phone" className="">
+                شماره موبایل
+              </FieldLabel>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </FieldGroup>
+            <Button type="submit" className="w-full">
+              ورود
+            </Button>
+          </form>
+        </TextSection>
       </ContentPadding>
     );
   } else {
     return (
       <ContentPadding>
-        <form action={verifyOtp}>
-          <input type="hidden" name="phone" value={phone}/>
-          <FieldGroup dir="ltr">
-            <FieldLabel htmlFor="otp">کد ارسال شده را وارد کنید.</FieldLabel>
-            <InputOTP id="digits-only" name="otp" maxLength={6}>
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
-              </InputOTPGroup>
-            </InputOTP>
-          </FieldGroup>
-          <Button type="submit" onClick={() => setSubmited(true)}>
-            ثبت نام
-          </Button>
-        </form>
+        <TextSection title="کد تایید را وارد کنید">
+          <form action={verifyOtp} className="flex flex-col gap-5">
+            <input type="hidden" name="phone" value={phone} />
+            <FieldGroup className="gap-2">
+              <FieldLabel htmlFor="otp">کد تایید برای شما ارسال شد.</FieldLabel>
+              <InputOTP id="digits-only" name="otp" maxLength={6}>
+                <InputOTPGroup dir="ltr" className="w-full justify-center">
+                  <InputOTPSlot index={0} className="flex w-full h-10" />
+                  <InputOTPSlot index={1} className="flex w-full h-10" />
+                  <InputOTPSlot index={3} className="flex w-full h-10" />
+                  <InputOTPSlot index={2} className="flex w-full h-10" />
+                  <InputOTPSlot index={4} className="flex w-full h-10" />
+                  <InputOTPSlot index={5} className="flex w-full h-10" />
+                </InputOTPGroup>
+              </InputOTP>
+            </FieldGroup>
+            <Button
+              type="submit"
+              onClick={() => setSubmited(true)}
+              className="w-full"
+            >
+              ورود
+            </Button>
+          </form>
+        </TextSection>
       </ContentPadding>
     );
   }

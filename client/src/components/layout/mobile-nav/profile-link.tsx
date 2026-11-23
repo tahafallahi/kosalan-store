@@ -8,7 +8,7 @@ export default async function ProfileLink() {
       {user ? (
         <NavLink icon="profile" text="پروفایل" link="/user/profile" />
       ) : (
-        <NavLink icon="enter" text="ورود/ثبت نام" link="user/auth" />
+        <NavLink icon="enter" text="ورود/ثبت نام" link="/user/auth" />
       )}
     </>
   );

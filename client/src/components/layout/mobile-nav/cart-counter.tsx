@@ -1,5 +1,5 @@
 "use client"
-import { useRetriveCart } from "@/hooks/cart";
+import { useRetriveCart } from "@/hooks/data-hooks";
 import useCartContext from "@/hooks/contexts";
 import { retrieveCart } from "@/lib/data/cart";
 import { GetCartItemsCount } from "@/lib/utils/get-cart-items-count";

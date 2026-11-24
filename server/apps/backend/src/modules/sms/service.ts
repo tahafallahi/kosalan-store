@@ -55,7 +55,7 @@ class SmsService extends AbstractNotificationProviderService {
 
   // { otp: "12345" } -> [{ name: "otp", value: "12345" }]
   const parameters = Object.entries(data ?? {}).map(([name, value]) => ({
-    name,
+    name: "CODE",
     value: String(value),
   }))
 
@@ -74,7 +74,7 @@ class SmsService extends AbstractNotificationProviderService {
         parameters,
       }),
     })
-    console.log( parameters, "sent")
+    console.log( response.body)
   } catch (e) {
     throw new MedusaError(
       MedusaError.Types.UNEXPECTED_STATE,

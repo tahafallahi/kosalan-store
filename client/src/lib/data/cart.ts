@@ -21,8 +21,6 @@ export async function retrieveCart() {
       {
         method: "GET",
         headers,
-        next: { tags: ["cart"] },
-        cache: "force-cache",
       },
     );
     const cart = response.cart;
@@ -59,7 +57,6 @@ export async function addToCart(varaiantId: string) {
   );
 
   
-  updateTag("cart");
 }
 
 export async function updateLineItem(lineItemId: string, quantity: number) {
@@ -77,7 +74,6 @@ export async function updateLineItem(lineItemId: string, quantity: number) {
     headers,
   );
 
-  updateTag("cart");
 }
 
 export async function deleteLineItem(lineItemId: string) {
@@ -89,7 +85,6 @@ export async function deleteLineItem(lineItemId: string) {
 
   await sdk.store.cart.deleteLineItem(cart.id, lineItemId, {}, headers);
 
-  updateTag("cart");
 }
 
 export async function transferCart() {
@@ -98,5 +93,4 @@ export async function transferCart() {
   const headers = { ...(await getAuthHeaders()) };
 
   await sdk.store.cart.transferCart(cart.id, {}, headers);
-  updateTag("cart");
 }

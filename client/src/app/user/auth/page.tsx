@@ -3,7 +3,6 @@
 import ContentPadding from "@/components/layout/content-padding/content-padding";
 import TextSection from "@/components/layout/text-section/text-section";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -37,6 +36,7 @@ export default function Auth() {
                 type="tel"
                 placeholder="۰۹۱۲۳۴۵۶۷۸۹"
                 onChange={(e) => setPhone(e.target.value)}
+                required
               />
             </FieldGroup>
             <Button type="submit" className="w-full">
@@ -54,7 +54,7 @@ export default function Auth() {
             <input type="hidden" name="phone" value={phone} />
             <FieldGroup className="gap-2">
               <FieldLabel htmlFor="otp">کد تایید برای شما ارسال شد.</FieldLabel>
-              <InputOTP id="digits-only" name="otp" maxLength={6}>
+              <InputOTP id="digits-only" name="otp" maxLength={6} required>
                 <InputOTPGroup dir="ltr" className="w-full justify-center">
                   <InputOTPSlot index={0} className="flex w-full h-10" />
                   <InputOTPSlot index={1} className="flex w-full h-10" />

@@ -1,6 +1,6 @@
 "use server";
 
-import { HttpTypes } from "@medusajs/types";
+import { HttpTypes, StoreCart } from "@medusajs/types";
 import { sdk } from "../medusa";
 import { getAuthHeaders, getCartId, setCartId } from "./cookies";
 import { getRegionId } from "./region";
@@ -33,19 +33,15 @@ export async function retrieveCart() {
 }
 
 export async function getOrSetCart() {
-  const cartId = await getCartId();
+  let cart = await retrieveCart();
 
-  if (cartId) {
-    const response = await sdk.store.cart.retrieve(cartId);
-    const cart = response.cart;
-    return cart;
-  } else {
+  if (!cart) {
     const response = await sdk.store.cart.create({ region_id: regionId });
-    const cart = response.cart;
+    cart = response.cart;
     await setCartId(cart.id);
-
-    return cart;
   }
+
+  return cart;
 }
 
 export async function addToCart(varaiantId: string) {
@@ -62,6 +58,7 @@ export async function addToCart(varaiantId: string) {
     headers,
   );
 
+  
   updateTag("cart");
 }
 

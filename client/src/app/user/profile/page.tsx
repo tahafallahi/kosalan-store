@@ -1,4 +1,4 @@
-import { CustomerInformation } from "@/components/customer/customer-information/customer-information";
+import { CustomerInformation } from "@/components/customer/information/customer-information";
 import ContentPadding from "@/components/layout/content-padding/content-padding";
 import TextSection from "@/components/layout/text-section/text-section";
 import { Button } from "@/components/ui/button";

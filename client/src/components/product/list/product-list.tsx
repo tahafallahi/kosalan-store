@@ -1,5 +1,5 @@
 import { StoreCartLineItem } from "@medusajs/types";
-import ProductItem from "./product-item";
+import ProductItem from "./components/product-item";
 import TextSection from "@/components/layout/text-section/text-section";
 
 interface Props {

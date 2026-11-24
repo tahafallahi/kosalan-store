@@ -7,8 +7,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
-import { Card } from "../ui/card";
+} from "@/components/ui/carousel";
+import { Card } from "@/components/ui/card";
 
 interface Props {
   imagePaths: string[];

@@ -1,7 +1,7 @@
 "use client";
 
 import { PlusIcon } from "@phosphor-icons/react/dist/ssr";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { StoreCart, StoreCartLineItem, StoreProduct } from "@medusajs/types";
 import { cn } from "cn";
 import { startTransition } from "react";

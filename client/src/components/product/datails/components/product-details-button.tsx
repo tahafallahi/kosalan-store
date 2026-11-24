@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import AddRemoveButton from "@/components/ui/add-remove-button";
-import AddToCartButton from "@/components/ui/add-to-cart-button";
+import AddToCartButton from "@/components/shared/button/add-to-cart-button";
+import QuantityButton from "@/components/shared/button/quantity-button";
 import useCartContext from "@/hooks/contexts";
 import { StoreProduct } from "@medusajs/types";
 
@@ -18,7 +18,7 @@ export default function ProductDetailsButton({ product }: Props) {
   return (
     <>
       {cartItem && setOptimsticCart ? (
-        <AddRemoveButton
+        <QuantityButton
           optimisticCart={optimisticCart}
           setOptimisticCart={setOptimsticCart}
           cartItem={cartItem}

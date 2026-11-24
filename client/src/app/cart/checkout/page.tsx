@@ -1,8 +1,8 @@
 "use client"
 
-import { CustomerInformation } from "@/components/customer/customer-information/customer-information";
+import { CustomerInformation } from "@/components/customer/information/customer-information";
 import TextSection from "@/components/layout/text-section/text-section";
-import ProductList from "@/components/product/product-list/product-list";
+import ProductList from "@/components/product/list/product-list";
 import useCartContext from "@/hooks/contexts";
 import { useRetriveCustomer } from "@/hooks/data-hooks";
 import { formatNumber } from "@/lib/utils/format-number";

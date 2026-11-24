@@ -1,13 +1,13 @@
 "use client";
 
 import { MinusIcon, PlusIcon } from "@phosphor-icons/react/dist/ssr";
-import { Button } from "./button";
 import { StoreCart, StoreCartLineItem } from "@medusajs/types";
 import { cn } from "cn";
 import { updateLineItem } from "@/lib/data/cart";
 import { formatNumber } from "@/lib/utils/format-number";
 import { startTransition } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   optimisticCart: StoreCart | null | undefined;
@@ -22,7 +22,7 @@ interface Props {
   small?: boolean;
 }
 
-export default function AddRemoveButton({
+export default function QuantityButton({
   optimisticCart,
   setOptimisticCart,
   cartItem,

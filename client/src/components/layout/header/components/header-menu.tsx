@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ListIcon, MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "cn";
-import React, { useState } from "react";
+import React from "react";
 
 interface Props {
   className?: string;
@@ -21,11 +21,11 @@ export default function HeaderMenu({
         variant="ghost"
         className={cn("p-0 border-none size-10", className)}
       >
-        {menuIsOpen ?
-        <MagnifyingGlassIcon className="size-full" />
-        :
-        <ListIcon className="size-full" />
-        }
+        {menuIsOpen ? (
+          <MagnifyingGlassIcon className="size-full" />
+        ) : (
+          <ListIcon className="size-full" />
+        )}
       </Button>
     </>
   );

@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { formatPhoneNumber } from "@/lib/utils/format-phone-number";
 import { StoreCustomer } from "@medusajs/types";
 import { PencilIcon } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
-import CustomerInformationForm from "../customer-information-form.tsx/customer-information-form";
+import CustomerInformationForm from "../information-form.tsx/customer-information-form";
+import { useRemoveCustomerCookies } from "@/hooks/data-hooks";
 
 interface Props {
   customer: StoreCustomer;
@@ -17,8 +18,9 @@ interface Props {
 
 export function CustomerInformation({ customer, showSignOutButton }: Props) {
   const { first_name, last_name, phone, addresses } = customer;
-
   const [editing, setEditing] = useState(false);
+
+  const mut = useRemoveCustomerCookies() 
 
   if (editing) {
     return (
@@ -37,7 +39,7 @@ export function CustomerInformation({ customer, showSignOutButton }: Props) {
           <p>{`کدپستی: ${formatPhoneNumber(Number(addresses[0]?.postal_code)) ?? "-"}`}</p>
         </div>
         {showSignOutButton && 
-              <Button variant="destructive" className="w-full mt-4">
+              <Button variant="destructive" className="w-full mt-4" onClick={() => mut.mutate()}>
                 خروج از حساب کاربری
               </Button>
         }

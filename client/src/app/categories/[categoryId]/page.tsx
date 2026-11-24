@@ -1,19 +1,18 @@
-import PostersCarousel from "@/components/carousels/posters-carousel";
-import CategoriesStrip from "@/components/categories/strip/categories-strip";
+import PostersCarousel from "@/components/carousel/posters/posters-carousel";
+import CategoriesStrip from "@/components/category/strip/categories-strip";
 import ContentPadding from "@/components/layout/content-padding/content-padding";
-import ProductsColumn from "@/components/product/products-column/products-column";
+import ProductsColumn from "@/components/product/column/products-column";
 import { listCategories } from "@/lib/data/categories";
 import { listProdcuts } from "@/lib/data/products";
 
-
-export const instant = false
+export const instant = false;
 
 export async function generateStaticParams() {
   const categories = await listCategories();
-  
+
   return categories.map((c) => ({
     categoryId: c.id,
-  }))
+  }));
 }
 
 interface Props {
@@ -23,7 +22,7 @@ interface Props {
 export default async function CategoryProducts({ params }: Props) {
   const { categoryId } = await params;
   const products = await listProdcuts(categoryId);
-  const categories = await listCategories()
+  const categories = await listCategories();
 
   return (
     <>

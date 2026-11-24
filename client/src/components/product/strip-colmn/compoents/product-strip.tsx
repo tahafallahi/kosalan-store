@@ -6,9 +6,9 @@ import Image from "next/image";
 import { formatNumber } from "@/lib/utils/format-number";
 import { StarIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import AddRemoveButton from "@/components/ui/add-remove-button";
-import RemoveButton from "@/components/ui/remove-button";
+import RemoveButton from "@/components/shared/button/remove-button";
 import useCartContext from "@/hooks/contexts";
+import QuantityButton from "@/components/shared/button/quantity-button";
 
 interface Props {
   cartItem: StoreCartLineItem;
@@ -48,7 +48,7 @@ export default function ProductStrip({ cartItem }: Props) {
         </div>
 
         <div className="flex  gap-2 justify-between">
-          <AddRemoveButton
+          <QuantityButton
             optimisticCart={optimisticCart!}
             setOptimisticCart={setOptimisticCart}
             cartItem={opCartItem}

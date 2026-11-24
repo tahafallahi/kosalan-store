@@ -6,9 +6,7 @@ import Header from "@/components/layout/header/header";
 import MobileNav from "@/components/layout/mobile-nav/mobile-nav";
 import Main from "@/components/layout/main/main";
 import Footer from "@/components/layout/footer/footer";
-import CartContextProvider, { Providers } from "@/providers";
-import { retrieveCart } from "@/lib/data/cart";
-import { Suspense } from "react";
+import CartContextProvider, { Providers } from "@/contexts/providers";
 const vazirMatn = Vazirmatn({
   variable: "--font-vazirmatn",
   subsets: ["arabic"],

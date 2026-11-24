@@ -1,10 +1,10 @@
-import NavLink from "./nav-link";
-import CartCounter from "./cart-counter";
+import NavLink from "./components/nav-link";
+import CartCounter from "./components/cart-counter";
 import { Suspense } from "react";
-import CartDetailesWrapper from "./cart-detailes-wrapper";
-import CartDetailes from "./cart-detailes";
-import ProfileLink from "./profile-link";
-import CheckoutDetails from "./checkout-details";
+import CartDetailesWrapper from "./components/cart-detailes-wrapper";
+import CartDetailes from "./components/cart-detailes";
+import ProfileLink from "./components/profile-link";
+import CheckoutDetails from "./components/checkout-details";
 
 export default function MobileNav() {
   return (

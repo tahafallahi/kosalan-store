@@ -1,5 +1,5 @@
-import ProductCard from "./product-card";
-import ProductsSort from "./products-sort";
+import ProductCard from "./components/product-card";
+import ProductsSort from "./components/products-sort";
 import Grid from "../../layout/grid/grid";
 import { StoreProduct } from "@medusajs/types";
 

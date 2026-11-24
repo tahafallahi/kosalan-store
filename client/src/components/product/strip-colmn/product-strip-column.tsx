@@ -1,5 +1,5 @@
 import { StoreCartLineItem } from "@medusajs/types";
-import ProductStrip from "./product-strip";
+import ProductStrip from "./compoents/product-strip";
 
 interface Props {
   cartItems: StoreCartLineItem[]

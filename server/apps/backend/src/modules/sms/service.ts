@@ -5,7 +5,7 @@ import {
 import {
   ProviderSendNotificationDTO,
   ProviderSendNotificationResultsDTO,
-} from "@medusajs/types";
+} from "@medusajs/framework/types";
 
 type InjectedDependencies = {};
 

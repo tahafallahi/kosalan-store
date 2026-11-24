@@ -1,7 +1,7 @@
-import ProductsCarousel from "@/components/carousels/products-carousel";
+import ProductsCarousel from "@/components/carousel/products/products-carousel";
 import ContentPadding from "@/components/layout/content-padding/content-padding";
 import TextSection from "@/components/layout/text-section/text-section";
-import ProdcutDetails from "@/components/product/product-datails/product-details";
+import ProdcutDetails from "@/components/product/datails/product-details";
 import { listProdcuts, retriveProductByHandle } from "@/lib/data/products";
 
 export const instant = false;

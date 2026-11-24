@@ -5,10 +5,10 @@ import { MagnifyingGlassIcon, ShoppingCartIcon } from "@phosphor-icons/react";
 import { cn } from "cn";
 import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
-import HeaderMenu from "./header-menu";
+import HeaderMenu from "./components/header-menu";
 import Link from "next/link";
-import HeaderLink from "./header-link";
-import CartCounter from "../mobile-nav/cart-counter";
+import HeaderLink from "./components/header-link";
+import CartCounter from "../mobile-nav/components/cart-counter";
 
 const HEADER_COLLAPSE_POINT = 80;
 

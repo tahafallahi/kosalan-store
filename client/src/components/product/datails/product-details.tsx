@@ -1,10 +1,8 @@
-import AddToCartButton from "@/components/ui/add-to-cart-button";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatNumber } from "@/lib/utils/format-number";
 import { StoreProduct } from "@medusajs/types";
 import { StarIcon } from "@phosphor-icons/react/dist/ssr";
-import ProductDetailsButton from "./product-details-button";
+import ProductDetailsButton from "./components/product-details-button";
 
 interface Props {
   product: StoreProduct;

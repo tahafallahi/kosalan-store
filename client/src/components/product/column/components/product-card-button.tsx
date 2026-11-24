@@ -1,11 +1,10 @@
 "use client";
 
-import { useRetriveCart } from "@/hooks/data-hooks";
 // import useMounetd from "@/hooks/mount";
-import AddRemoveButton from "@/components/ui/add-remove-button";
-import AddToCartButton from "@/components/ui/add-to-cart-button";
 import { StoreProduct } from "@medusajs/types";
 import useCartContext from "@/hooks/contexts";
+import QuantityButton from "@/components/shared/button/quantity-button";
+import AddToCartButton from "@/components/shared/button/add-to-cart-button";
 
 interface Props {
   product: StoreProduct;
@@ -20,7 +19,7 @@ export default function ProductCardButton({ product }: Props) {
   return (
     <>
       {cartItem && setOptimsticCart ? (
-        <AddRemoveButton
+        <QuantityButton
           optimisticCart={optimisticCart}
           setOptimisticCart={setOptimsticCart}
           cartItem={cartItem}

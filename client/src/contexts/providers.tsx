@@ -2,12 +2,11 @@
 
 import { useOptimistic, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRetriveCart } from "./hooks/data-hooks";
-import CartContenxt from "./contexts/cart";
-import { StoreCart } from "@medusajs/types";
+import { useRetriveCart } from "../hooks/data-hooks";
+import CartContenxt from "./cart";
+
 let browserQueryClient: QueryClient | undefined;
 function getQueryClient() {
-  // Keep server requests isolated and preserve the browser cache across renders.
   if (typeof window === "undefined") return new QueryClient();
   browserQueryClient ??= new QueryClient();
   return browserQueryClient;

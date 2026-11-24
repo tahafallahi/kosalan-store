@@ -1,7 +1,6 @@
-"use client"
-import { useRetriveCart } from "@/hooks/data-hooks";
+"use client";
+
 import useCartContext from "@/hooks/contexts";
-import { retrieveCart } from "@/lib/data/cart";
 import { GetCartItemsCount } from "@/lib/utils/get-cart-items-count";
 import { cn } from "cn";
 
@@ -10,7 +9,7 @@ interface Props {
 }
 
 export default function CartCounter({ className }: Props) {
-  const [optimisticCart] = useCartContext()
+  const [optimisticCart] = useCartContext();
 
   return (
     <>

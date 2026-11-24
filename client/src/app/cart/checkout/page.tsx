@@ -1,8 +1,11 @@
-"use client"
+"use client";
 
 import { CustomerInformation } from "@/components/customer/information/customer-information";
+import ContentPadding from "@/components/layout/content-padding/content-padding";
+import CheckoutDetails from "@/components/layout/mobile-nav/components/checkout-details";
 import TextSection from "@/components/layout/text-section/text-section";
 import ProductList from "@/components/product/list/product-list";
+import { Card } from "@/components/ui/card";
 import useCartContext from "@/hooks/contexts";
 import { useRetriveCustomer } from "@/hooks/data-hooks";
 import { formatNumber } from "@/lib/utils/format-number";
@@ -20,7 +23,7 @@ export default function Checkout() {
     ) ?? [];
 
   return (
-    <>
+    <ContentPadding>
       {optimisticCart?.items ? (
         <ProductList cartItems={items} />
       ) : (
@@ -43,6 +46,9 @@ export default function Checkout() {
           </div>
         </div>
       </TextSection>
-    </>
+      <Card className="px-4 opacity-0 md:opacity-100">
+        <CheckoutDetails />
+      </Card>
+    </ContentPadding>
   );
 }

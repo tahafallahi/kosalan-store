@@ -9,6 +9,7 @@ import HeaderMenu from "./components/header-menu";
 import Link from "next/link";
 import HeaderLink from "./components/header-link";
 import CartCounter from "../mobile-nav/components/cart-counter";
+import HeaderProfileLink from "./components/header-profile-link";
 
 const HEADER_COLLAPSE_POINT = 80;
 
@@ -78,15 +79,12 @@ export default function Header() {
       </div>
 
       <nav className="flex  items-center gap-7 xl:gap-12">
-        <h2 className="hidden md:inline font-semibold">ورود | ثبت نام</h2>
+        <HeaderProfileLink />
         <div className="relative hidden md:inline">
-          <Button
-            className="p-0 border-none size-9"
-            variant="ghost"
-          >
-            <ShoppingCartIcon className="size-full" weight="regular" />
-          </Button>
-          {/* <CartCounter className="-left-1 text-base/7 size-6"/> */}
+          <Link href="/cart">
+            <ShoppingCartIcon className="size-9" weight="regular" />
+            <CartCounter className="-left-1 text-base/7 size-6" />
+          </Link>
         </div>
         <HeaderMenu
           className="xl:hidden"

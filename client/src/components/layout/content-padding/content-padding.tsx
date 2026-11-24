@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function ContentPadding({ children }: Props) {
-  return <div className="px-4 flex flex-col gap-5">{children}</div>;
+  return <div className="px-4 lg:px-20 flex flex-col gap-5">{children}</div>;
 }

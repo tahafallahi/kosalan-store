@@ -22,7 +22,7 @@ export default function ProductsCarousel({ imagePaths }: Props) {
     >
       <CarouselContent className="py-1">
         {imagePaths.map((p) => (
-          <CarouselItem key={p} className="basis-2/3">
+          <CarouselItem key={p} className="basis-2/3 lg:basis-2/10">
             <Card className="p-0 ">
               <Image
                 src={p}

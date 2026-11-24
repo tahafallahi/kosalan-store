@@ -2,7 +2,7 @@ import ContentPadding from "../content-padding/content-padding";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-card pt-5 pb-27 ">
+    <footer className="border-t bg-card pt-5 mt-20 ">
       <ContentPadding>
         <div className="flex w-full justify-between">
           <div className="flex flex-col gap-1">

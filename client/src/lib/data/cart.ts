@@ -1,10 +1,9 @@
 "use server";
 
-import { HttpTypes, StoreCart } from "@medusajs/types";
+import { HttpTypes } from "@medusajs/types";
 import { sdk } from "../medusa";
 import { getAuthHeaders, getCartId, setCartId } from "./cookies";
 import { getRegionId } from "./region";
-import { updateTag } from "next/cache";
 
 const regionId = await getRegionId();
 

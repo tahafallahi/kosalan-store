@@ -29,7 +29,7 @@ export default function PostersCarousel({ imagePaths }: Props) {
       >
         <CarouselContent>
           {imagePaths.map((p) => (
-            <CarouselItem key={p} className="basis-4/5 pl-0 pr-4">
+            <CarouselItem key={p} className="basis-4/5 lg:basis-3/5 pl-0 pr-4">
               <Image
                 src={p}
                 alt={p.split("-").join(" ")}

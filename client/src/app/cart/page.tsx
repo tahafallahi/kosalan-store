@@ -1,7 +1,9 @@
 "use client";
 
 import ContentPadding from "@/components/layout/content-padding/content-padding";
+import CartDetailes from "@/components/layout/mobile-nav/components/cart-detailes";
 import ProductsStripColumn from "@/components/product/strip-colmn/product-strip-column";
+import { Card } from "@/components/ui/card";
 import useCartContext from "@/hooks/contexts";
 
 export default function Cart() {
@@ -22,6 +24,9 @@ export default function Cart() {
       ) : (
         <p>کالایی در سبد خرید شما نیست.</p>
       )}
+      <Card className="px-4 opacity-0 md:opacity-100">
+        <CartDetailes />
+      </Card>
     </ContentPadding>
   );
 }

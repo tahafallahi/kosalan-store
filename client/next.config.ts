@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  allowedDevOrigins: ["172.17.23.95"],
+  allowedDevOrigins: [""],
 
   images: {
     qualities: [25, 50, 75, 100],
@@ -22,10 +22,10 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
-      // {
-      //   protocol: "https",
-      //   hostname: process.env.S3_URL ?? ""
-      // }
+      {
+        protocol: "https",
+        hostname: process.env.S3_URL ?? ""
+      }
     ],
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
   },
